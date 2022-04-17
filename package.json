@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "start": "node .output/server/index.mjs"
+  },
+  "devDependencies": {
+    "@vueuse/core": "^8.2.6",
+    "@vueuse/nuxt": "^8.2.6",
+    "nuxt3": "latest"
+  },
+  "dependencies": {
+    "nuxt-socket-io": "^3.0.6"
+  }
+}
