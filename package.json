@@ -6,11 +6,13 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
+    "@types/express": "^4.17.13",
     "@vueuse/core": "^8.2.6",
     "@vueuse/nuxt": "^8.2.6",
     "nuxt3": "latest"
   },
   "dependencies": {
-    "nuxt-socket-io": "^3.0.6"
+    "socket.io": "^4.4.1",
+    "socket.io-client": "^4.4.1"
   }
 }
