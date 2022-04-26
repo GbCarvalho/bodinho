@@ -1,38 +1,18 @@
-<template>
-  <div>
-    <b>{{ message }}</b>
-    <input type="text" v-model="input" />
-  </div>
+<template lang="pug">
+button(@click="room")
+  | Click me, meeeh!
 </template>
 
 <script setup lang="ts">
-import io from "socket.io-client";
-let socket;
+import { nanoid } from "nanoid";
+const router = useRouter();
 
-const message = ref<string>("");
-
-const socketInitializer = async () => {
-  fetch("/api/ws");
-  socket = io();
-
-  socket.on("connect", () => {
-    console.log("connected");
+function room() {
+  const id = nanoid(8);
+  return navigateTo({
+    path: `/room/${id}`,
   });
-
-  socket.on("update-input", (value) => {
-    message.value = value;
-  });
-
-  return null;
-};
-
-socketInitializer();
-
-const input = ref<string>("");
-
-watch(input, (value) => {
-  socket.emit("input-change", value);
-});
+}
 </script>
 
 <style scoped></style>
