@@ -1,12 +1,15 @@
 FROM node:16.14-alpine
 
 WORKDIR /app
+
+RUN corepack enable
+
 COPY package*.json ./
 
-RUN npm install
+RUN yarn install
 
 COPY . .
 
 EXPOSE 3000 3000
 
-CMD [ "npm", "run", "dev" ]
+CMD [ "yarn", "dev" ]
