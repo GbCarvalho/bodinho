@@ -33,6 +33,11 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
+  readyUser(sid: string) {
+    const user = this.findBySid(sid);
+    user.ready = true;
+  }
+
   findBySid( sid: string) {
     return this.users.find((user) => user.sid === sid);
   }
