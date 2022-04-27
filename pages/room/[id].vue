@@ -4,8 +4,11 @@ button()
 </template>
 
 <script setup lang="ts">
+import { faker } from "@faker-js/faker";
 import io from "socket.io-client";
 let socket;
+
+const message = ref("");
 
 const route = useRoute();
 
@@ -17,14 +20,26 @@ const socketInit = async () => {
   socket.on("connect", () => {
     console.log("connected");
 
-  socket.on("connection_callback", (message) => {
-    console.log(message);
-  });
+    socket.emit("joinRoom", {
+      nick: faker.animal.type(),
+      room: route.params.id,
+    });
 
+    socket.on("userJoined", (user) => {
+      console.log(user);
+    });
+
+    socket.on("newMsg", (msg) => {
+      console.log(msg);
+    });
   });
 
   return null;
 };
+
+function emitMsg() {
+  socket.emit("msg", message.value);
+}
 
 socketInit();
 </script>
