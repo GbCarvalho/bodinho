@@ -1,19 +1,15 @@
 import User from "../model/User";
 
 interface ICreateUserDTO {
-  nick: string;
-  room: string;
-}
-
-interface IGetUserDTO {
+  sid: string;
   nick: string;
   room: string;
 }
 
 interface IUsersRepository {
-  createUser({ nick, room }: ICreateUserDTO): User;
-  findByNick({ nick, room }: IGetUserDTO): User | undefined;
+  createUser({ sid, nick, room }: ICreateUserDTO): User;
+  findBySid( sid: string): User | undefined;
   getUsersInRoom(room: string): User[];
 }
 
-export { IUsersRepository, ICreateUserDTO, IGetUserDTO };
+export { IUsersRepository, ICreateUserDTO };

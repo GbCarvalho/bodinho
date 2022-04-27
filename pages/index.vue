@@ -1,16 +1,18 @@
 <template lang="pug">
-button(@click="room")
-  | Click me, meeeh!
+div
+  input(v-model="roomId")
+  button(@click="room")
+    | {{ (roomId === "" ? 'New room!' : 'Join room!') }}
 </template>
 
 <script setup lang="ts">
 import { nanoid } from "nanoid";
-const router = useRouter();
+
+const roomId = ref("")
 
 function room() {
-  const id = nanoid(8);
   return navigateTo({
-    path: `/room/${id}`,
+    path: `/room/${roomId.value === "" ? nanoid(8) : roomId.value}`,
   });
 }
 </script>

@@ -1,15 +1,14 @@
 import { User } from "../../model/User";
 import {
-  IGetUserDTO,
   IUsersRepository,
 } from "../../repositories/IUsersRepository";
 
-class GetUsersByRoomService {
+class GetUsersBySidService {
   constructor(private usersRepository: IUsersRepository) {}
 
-  execute({ nick, room }: IGetUserDTO): User[] {
-    return this.usersRepository.getUsersInRoom(room);
+  execute(sid: string): User | undefined{
+    return this.usersRepository.findBySid(sid);
   }
 }
 
-export { GetUsersByRoomService };
+export { GetUsersBySidService };

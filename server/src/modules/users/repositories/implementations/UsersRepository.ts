@@ -1,7 +1,6 @@
 import { User } from "../../model/User";
 import {
   ICreateUserDTO,
-  IGetUserDTO,
   IUsersRepository,
 } from "../IUsersRepository";
 
@@ -21,10 +20,11 @@ class UsersRepository implements IUsersRepository {
     return UsersRepository.INSTANCE;
   }
 
-  createUser({ nick, room }: ICreateUserDTO): User {
+  createUser({ sid, nick, room }: ICreateUserDTO): User {
     const user = new User();
 
     Object.assign(user, {
+      sid,
       nick,
       room,
     });
@@ -33,8 +33,8 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  findByNick({ nick, room }: IGetUserDTO) {
-    return this.users.find((user) => user.nick === nick && user.room === room);
+  findBySid( sid: string) {
+    return this.users.find((user) => user.sid === sid);
   }
 
   getUsersInRoom(room: string) {
