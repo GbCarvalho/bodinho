@@ -1,6 +1,5 @@
 <template lang="pug">
-button(@click="emitReady")
-  | Click me
+p Hola mundo!
 </template>
 
 <script setup lang="ts">
@@ -10,7 +9,7 @@ let socket;
 const route = useRoute();
 
 const socketInit = async () => {
-  fetch("/api/room/" + route.params.id);
+  fetch("/api/");
 
   socket = io();
 
@@ -20,10 +19,6 @@ const socketInit = async () => {
 
   return null;
 };
-
-function emitReady() {
-  socket.emit("ready", { room: route.params.id });
-}
 
 socketInit();
 </script>
