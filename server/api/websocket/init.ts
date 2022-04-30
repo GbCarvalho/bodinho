@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import { createUserController } from "../../src/modules/users/services/createUser";
 import { getUsersBySidController } from "../../src/modules/users/services/getUsersBySid";
+import { getUsersInRoomController } from "../../src/modules/users/services/getUsersInRoom";
 import { readyUserController } from "../../src/modules/users/services/readyUser";
 
 
@@ -12,10 +13,13 @@ export default defineEventHandler(({res}) => {
   socket.server.io = new Server(socket.server);
 
   socket.server.io.on("connection", (soc) => {
-    soc.on("join", (user) => {
+    soc.on("join", (user, callback) => {
       const newUser = createUserController.handle(user)
       soc.join(newUser.room);
       socket.server.io.in(newUser.room).emit("joined", newUser.nick);
+
+      const usersInRoom = getUsersInRoomController.handle(newUser.room);
+      callback({ users: usersInRoom });
     });
 
     soc.on("ready", () => {

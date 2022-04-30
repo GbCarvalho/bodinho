@@ -51,6 +51,11 @@ function join() {
     sid: socket.id,
     nick: nick.value,
     room: route.params.id
+  },
+  response => {
+    response.users.forEach(user => {
+      players.value.add(user.nick);
+    });
   });
 };
 
