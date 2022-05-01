@@ -1,0 +1,21 @@
+{
+  "generateIndex": {
+    "scope": "typescript",
+    "prefix": "servIndex",
+    "body": [
+      "import { ${2:RepositoryName}Repository } from \"../../repositories/implementations/${2:RepositoryName}Repository\";",
+      "import { ${1:serviceName}Controller } from \"./${1:serviceName}Controller\";",
+      "import { ${1:serviceName}Service } from \"./${1:serviceName}Service\";",
+      "",
+      "const ${2/^(.)(.*)$/${1:/downcase}${2}/}Repository = ${2:RepositoryName}Repository.getInstance();",
+      "const ${1/^(.)(.*)$/${1:/downcase}${2}/}Service = new ${1:serviceName}Service(${2/^(.)(.*)$/${1:/downcase}${2}/}Repository);",
+      "const ${1/^(.)(.*)$/${1:/downcase}${2}/}Controller = new ${1:serviceName}Controller(",
+      "\t${1/^(.)(.*)$/${1:/downcase}${2}/}Service",
+      ");",
+      "",
+      "export { ${1/^(.)(.*)$/${1:/downcase}${2}/}Controller };",
+      ""
+    ],
+    "description": "Cria um index para um serviço"
+  }
+}
