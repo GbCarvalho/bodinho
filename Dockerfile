@@ -1,4 +1,5 @@
 FROM node:16.14
+ENV NODE_ENV=dev
 
 WORKDIR /app
 
@@ -10,6 +11,7 @@ RUN yarn install
 
 COPY . .
 
-EXPOSE 3000 3000
+EXPOSE 3000
+EXPOSE 24678
 
 CMD [ "yarn", "dev" ]
