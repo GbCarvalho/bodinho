@@ -6,5 +6,6 @@ services:
     command: yarn dev
     ports:
       - "3000:3000"
+      - "24678:24678"
     volumes:
       - ".:/app"
