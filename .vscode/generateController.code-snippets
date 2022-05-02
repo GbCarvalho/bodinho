@@ -1,0 +1,22 @@
+{
+  "generateController": {
+    "scope": "typescript",
+    "prefix": "controller",
+    "body": [
+      "import { I${1:ServiceName}DTO } from \"../../repositories/I${2:RepositoryName}Repository\";",
+      "import { ${1:ServiceName}Service } from \"./${1:ServiceName}Service\";",
+      "",
+      "class ${1:ServiceName}Controller {",
+      "\tconstructor(private ${1/^(.)(.*)$/${1:/downcase}${2}/}Service: ${1:ServiceName}Service) {}",
+      "",
+      "\thandle(user: I${1:ServiceName}DTO) {",
+      "\t\tconst new${2/^(.*)(s)$/${1}/} = this.${1/^(.)(.*)$/${1:/downcase}${2}/}Service.execute(user);",
+      "\t\treturn new${2/^(.*)(s)$/${1}/};",
+      "\t}",
+      "}",
+      "",
+      "export { ${1:ServiceName}Controller };"
+    ],
+    "description": "Gera um controller para o serviço da api"
+  }
+}
