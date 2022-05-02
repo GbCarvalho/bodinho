@@ -9,3 +9,4 @@ services:
       - "24678:24678"
     volumes:
       - ".:/app"
+    container_name: bodinho_app
