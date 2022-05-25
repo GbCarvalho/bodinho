@@ -20,44 +20,46 @@ div
 
 <script setup lang="ts">
 import io from "socket.io-client";
+import { useStore } from "~~/store";
+import { storeToRefs } from "pinia";
 
-const messages = ref([])
-const players = ref(new Set())
+const store = useStore();
+
+const { players, messages } = storeToRefs(store);
+
 const route = useRoute();
 let socket;
 
-const text = ref('');
-const nick = ref('');
+const text = ref("");
+const nick = ref("");
 
 onMounted(() => {
-  fetch(`/api/websocket/init`).then(()=>{
+  fetch(`/api/websocket/init`).then(() => {
     socket = io();
-    socket.on("connect", () => {
-      socket.on("message", (message) => {
-        messages.value.push(message);
-      });
-      socket.on("joined", (nick) => {
-        players.value.add(nick);
-      });
-      socket.on("leave", (nick) => {
-        players.value.delete(nick);
-      });
+    socket.on("connection", () => {
+      socket.on("message", store.addMessage);
+      socket.on("joined", store.addPlayer);
+      socket.on("leave", store.removePlayer);
     });
   });
 });
 
 function join() {
-  socket.emit("join", {
-    sid: socket.id,
-    nick: nick.value,
-    room: route.params.id
-  },
-  response => {
-    response.users.forEach(user => {
-      players.value.add(user.nick);
-    });
-  });
-};
+  console.log("join");
+  socket.emit(
+    "join",
+    {
+      sid: socket.id,
+      nick: nick.value,
+      room: route.params.id,
+    },
+    (response) => {
+      response.users.forEach((user) => {
+        store.addPlayer(user.nick);
+      });
+    }
+  );
+}
 
 function send() {
   socket.emit("sendMessage", text.value);
