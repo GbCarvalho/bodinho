@@ -17,10 +17,12 @@
     "pug-plain-loader": "^1.1.0"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.1.9",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-vue": "^8.7.1",
     "nanoid": "^3.3.3",
+    "pinia": "^2.0.14",
     "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1",
     "uuid": "^8.3.2"
