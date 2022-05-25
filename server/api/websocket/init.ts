@@ -5,9 +5,10 @@ export default defineEventHandler(({ res }) => {
   const { server } = res.socket as any;
   if (server.io) return;
   console.log("Socket is initializing");
-  const { io } = server;
 
   server.io = new Server(server);
+
+  const { io } = server;
 
   const onConnection = (socket: Socket) => {
     registerUserHandler(io, socket);
