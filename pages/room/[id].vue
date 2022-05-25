@@ -2,13 +2,14 @@
 div
   div(v-if="!players.has(nick)")
     span {{"Nickname: "}}
-    input(v-model="nick")
-    button(@click="join")
-      | Join
+    form(@submit.prevent="join")
+      input(v-model="nick")
+      button(type="submit")
+        | Join
   div(v-else)
-    div
+    form(@submit.prevent="send")
       input(v-model="text")
-      button(@click="send")
+      button(type="submit")
         | Click me
     h3 Players
       li(v-for="player in players")
@@ -63,8 +64,8 @@ function join() {
 
 function send() {
   socket.emit("sendMessage", text.value);
-};
-
+  store.addMessage(text.value);
+}
 </script>
 
 <style scoped></style>
