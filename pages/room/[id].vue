@@ -29,20 +29,17 @@ const store = useStore();
 const { players, messages } = storeToRefs(store);
 
 const route = useRoute();
-let socket;
 
 const text = ref("");
 const nick = ref("");
 
-onMounted(() => {
-  fetch(`/api/websocket/init`).then(() => {
-    socket = io();
-    socket.on("connection", () => {
-      socket.on("message", store.addMessage);
-      socket.on("joined", store.addPlayer);
-      socket.on("leave", store.removePlayer);
-    });
-  });
+const socket = io("/api/websocket", {
+  path: "/api/websocket",
+});
+socket.on("connection", () => {
+  socket.on("message", store.addMessage);
+  socket.on("joined", store.addPlayer);
+  socket.on("leave", store.removePlayer);
 });
 
 function join() {
