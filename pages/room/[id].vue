@@ -20,9 +20,9 @@ div
 </template>
 
 <script setup lang="ts">
-import io from "socket.io-client";
-import { useStore } from "~~/store";
 import { storeToRefs } from "pinia";
+import { useStore } from "../../store";
+import io from "socket.io-client";
 
 const store = useStore();
 
@@ -33,9 +33,8 @@ const route = useRoute();
 const text = ref("");
 const nick = ref("");
 
-const socket = io("/api/websocket", {
-  path: "/api/websocket",
-});
+const socket = io("/api/websocket");
+
 socket.on("connection", () => {
   socket.on("message", store.addMessage);
   socket.on("joined", store.addPlayer);
