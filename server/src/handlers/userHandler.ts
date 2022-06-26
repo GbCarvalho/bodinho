@@ -2,7 +2,7 @@ import { Server, Socket } from "socket.io";
 import { createUserController } from "../modules/users/services/createUser";
 import { getUsersBySidController } from "../modules/users/services/getUsersBySid";
 import { getUsersInRoomController } from "../modules/users/services/getUsersInRoom";
-import { readyUserController } from "../modules/users/services/readyUser";
+import { setUserReadyController } from "../modules/users/services/setUserReady";
 
 function registerUserHandler(io: Server, socket: Socket) {
   socket.on("join", (user, callback) => {
@@ -16,7 +16,7 @@ function registerUserHandler(io: Server, socket: Socket) {
 
   socket.on("ready", () => {
     const user = getUsersBySidController.handle(socket.id);
-    readyUserController.handle(user.sid);
+    setUserReadyController.handle(user.sid);
     socket.to(user.room).emit("ready", user.nick);
   });
 

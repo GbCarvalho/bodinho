@@ -1,7 +1,6 @@
-import { User } from "../../model/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
-class ReadyUserService {
+class SetUserReadyService {
   constructor(private usersRepository: IUsersRepository) {}
 
   execute(sid: string): void {
@@ -9,4 +8,4 @@ class ReadyUserService {
   }
 }
 
-export { ReadyUserService };
+export { SetUserReadyService };
